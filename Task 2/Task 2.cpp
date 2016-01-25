@@ -4,23 +4,33 @@
 #include <fstream>
 #include <time.h>
 
+
 using namespace std;
 
 class SuperMarket
 {
 private:
-	void greetings();
-	void menu();
-	void printInvoice();
-	void readDatabase();
-	void printReceipt();
-	double bill();
-	int firstItemAmount, secondItemAmount, thirdItemAmount, fourthItemAmount, fifthItemAmount;
-	// string name; // I don't think I know how strings work
+	void SuperMarketAPI(); // API runs methods in proper(?) order
+	void Greetings(); // Ask customer name, check time, greet customer (good morning, afternoon, evening)
+	void Menu(); // Ask user to select from list of 5 items which items were purchased and how many of each item
+	void PrintInvoice();// Prints invoice from printInvoice to a file with the customer name as the file name (e.g. johnmeyer_receipt.txt)
+	void ReadDatabase(); // Calculate and return the amount to be paid by the customer
+	void PrintReceipt(); // Print a receipt with: Description, amount purchased, total on that item, and final total to be paid
+	double Bill(); // Calculate and return the amount to be paid by the customer
+
+	struct session {
+		char customerName[20];
+		int firstItemAmount, secondItemAmount, thirdItemAmount, fourthItemAmount, fifthItemAmount;
+	} currentSession;
+
+	struct item {
+		string itemName;
+		int itemPrice;
+	}items[5];
 
 public:
 	SuperMarket() {
-		Greetings();
+		SuperMarketAPI();
 	}
 };
 
@@ -32,7 +42,7 @@ void SuperMarket::Greetings() {
 	timeinfo = localtime(&TheTime); // This converts from raw time to the structure.
 
 	cout << "Hello there valued customer! May I get your name? ";
-	cin.getline(this->customerName, 20);
+	cin.getline(this->currentSession.customerName, 20);
 	if (timeinfo->tm_hour < 12) {
 		cout << "Good morning ";
 	}
@@ -42,56 +52,43 @@ void SuperMarket::Greetings() {
 	else {
 		cout << "Good evening ";
 	}
-	cout << this->customerName << "!" << endl;
+	cout << this->currentSession.customerName << "!" << endl;
 };
 
-// Ask customer name, check time, greet customer (good morning, afternoon, evening)
-void SuperMarket::greetings()
+void SuperMarket::Menu() 
 {
 	// TO-DO
 }
 
-// Ask user to select from list of 5 items which items were purchased and how many of each item
-void SuperMarket::menu() 
-{
+double SuperMarket::Bill() {
 	// TO-DO
 }
 
-// Calculate and return the amount to be paid by the customer
-double SuperMarket::bill() // Should we have parameters here?
-{
-	// TO-DO
-}
-
-// Print a receipt with: Description, amount purchased, total on that item, and final total to be paid
-void SuperMarket::printInvoice() 
+void SuperMarket::PrintInvoice() 
 {
 	// TO-DO
 	// I'm assuming he wants us to calculate the total price per each number of items (e.g. 2 apples for $5 total) here
 	// and use result from bill method
 }
 
-// Read the file that contains Item name and price (each on one line)
-void readDatabase()
+void SuperMarket::ReadDatabase()
 {
 	// TO-DO
 }
 
-// Prints invoice from printInvoice to a file with the customer name as the file name (e.g. johnmeyer_receipt.txt)
-void printReceipt()
+void SuperMarket::PrintReceipt()
 {
 	// TO-DO
 }
 
-// Constructor runs methods in proper(?) order
-SuperMarket::SuperMarket()
+void SuperMarket::SuperMarketAPI()
 {
-	readDatabase();
-	greetings();
-	menu();
-	bill();
-	printInvoice();
-	printReceipt();
+	ReadDatabase();
+	Greetings();
+	Menu();
+	Bill();
+	PrintInvoice();
+	PrintReceipt();
 }
 
 int main()
