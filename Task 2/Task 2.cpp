@@ -1,6 +1,7 @@
 // Paramters for bill?: int &firstItemAmount, int &secondItemAmount, int &thirdItemAmount, int &fourthItemAmount, int &fifthItemAmount
 
 #include <iostream>
+#include <string>
 #include <fstream>
 #include <time.h>
 
@@ -19,13 +20,13 @@ private:
 	double Bill(); // Calculate and return the amount to be paid by the customer
 
 	struct session {
-		char customerName[20];
+		string customerName;
 		int firstItemAmount, secondItemAmount, thirdItemAmount, fourthItemAmount, fifthItemAmount;
 	} currentSession;
 
 	struct item {
 		string itemName;
-		int itemPrice;
+		float itemPrice;
 	}items[5];
 
 public:
@@ -42,7 +43,7 @@ void SuperMarket::Greetings() {
 	timeinfo = localtime(&TheTime); // This converts from raw time to the structure.
 
 	cout << "Hello there valued customer! May I get your name? ";
-	cin.getline(this->currentSession.customerName, 20);
+	cin >> this->currentSession.customerName;
 	if (timeinfo->tm_hour < 12) {
 		cout << "Good morning ";
 	}
@@ -53,6 +54,7 @@ void SuperMarket::Greetings() {
 		cout << "Good evening ";
 	}
 	cout << this->currentSession.customerName << "!" << endl;
+	cout << this->items[0].itemName;
 };
 
 void SuperMarket::Menu() 
@@ -62,6 +64,7 @@ void SuperMarket::Menu()
 
 double SuperMarket::Bill() {
 	// TO-DO
+	return 0.0; // TO-DO: change this!
 }
 
 void SuperMarket::PrintInvoice() 
@@ -83,6 +86,11 @@ void SuperMarket::PrintReceipt()
 
 void SuperMarket::SuperMarketAPI()
 {
+	items[0] = { "Apple", 1.00 };
+	items[1] = { "Salad Mix", 1.50 };
+	items[2] = { "Pork", 5.00 };
+	items[3] = { "Tomato", 1.00 };
+	items[4] = { "Spicy Southwest Chipotle Salad Dressing", 2.00 };
 	ReadDatabase();
 	Greetings();
 	Menu();
