@@ -1,7 +1,7 @@
-Customer: Bobby
-Item: Apple, Quantity: 2, Cost: $3.98
-Item: Eggs, Quantity: 2, Cost: $9.18
-Item: Milk, Quantity: 2, Cost: $6.58
-Item: Pasta, Quantity: 3, Cost: $5.67
-Item: Butter, Quantity: 5, Cost: $22.75
-Total: $48.16
+Customer: w
+Item: Tasty and Raunchy Apple, Quantity: 1, Cost: $1.99
+Item: Bawdy, Sassy Eggs, Quantity: 1, Cost: $4.59
+Item: Hard-core Milk, Quantity: 1, Cost: $3.29
+Item: Such Racy Pasta!, Quantity: 1, Cost: $1.89
+Item: Body_Butter, Quantity: 1, Cost: $4.55
+Total: $16.31

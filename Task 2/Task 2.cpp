@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <time.h>
-
+#include <cstdlib>
 using namespace std;
 
 class SuperMarket
@@ -10,7 +10,7 @@ class SuperMarket
 private:
 	void SuperMarketAPI(); // API runs methods in proper(?) order
 	void Greetings(); // Ask customer name, check time, greet customer (good morning, afternoon, evening)
-	void Menu(); // Ask user to select from list of 5 items which items were purchased and how many of each item
+	void Menu(); // Ask user to select from list of items which items were purchased and how many of each item
 	void PrintInvoice();// Prints invoice from printInvoice to a file with the customer name as the file name (e.g. johnmeyer_receipt.txt)
 	void ReadDatabase(); // Calculate and return the amount to be paid by the customer
 	void PrintReceipt(); // Print a receipt with: Description, amount purchased, total on that item, and final total to be paid
@@ -99,7 +99,14 @@ void SuperMarket::ReadDatabase()
 	inputStream.open("item_list.txt");
 
 	for (int i = 0; i < 5; i++) {
-		inputStream >> items[i].itemName >> items[i].itemPrice;
+		size_t start = 0, end;
+		string s, priceString;
+		getline(inputStream, s);
+		end = s.find_first_of("0123456789", start);
+		items[i].itemName = s.substr(start, end - 1  - start);
+		priceString = s.substr(end);
+		items[i].itemPrice = stof(priceString);
+		// cout << s << "--" << priceString << "--" << items[i].itemName << "--" << items[i].itemPrice << "-" << stof(priceString) << endl;
 	}
 
 	inputStream.close();
@@ -123,24 +130,19 @@ void SuperMarket::PrintReceipt()
 
 void SuperMarket::SuperMarketAPI()
 {
-	/*items[0] = { "Apple", 1.00 };
-	items[1] = { "Salad Mix", 1.50 };
-	items[2] = { "Pork", 5.00 };
-	items[3] = { "Tomato", 1.00 };
-	items[4] = { "Spicy Southwest Chipotle Salad Dressing", 2.00 };*/
 	ReadDatabase();
 	Greetings();
 	Menu();
 	Bill();
 	PrintInvoice();
 	PrintReceipt();
-	cout << "Enter any character to close: ";
-	cin >> end;
+	cout << "Press any key to close. ";
+	char n = cin.get();
+	cout << n;
 }
 
 int main()
 {
 	SuperMarket superMarket;
-
 	return 0;
 }
