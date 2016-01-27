@@ -1,7 +1,7 @@
-Customer: w
-Item: Tasty and Raunchy Apple, Quantity: 1, Cost: $1.99
-Item: Bawdy, Sassy Eggs, Quantity: 1, Cost: $4.59
-Item: Hard-core Milk, Quantity: 1, Cost: $3.29
-Item: Such Racy Pasta!, Quantity: 1, Cost: $1.89
-Item: Body_Butter, Quantity: 1, Cost: $4.55
-Total: $16.31
+Customer: A w
+Item: Tasty and Raunchy Apple, Quantity: 1841068064, Cost: $3.66373e+09
+Item: Bawdy, Sassy Eggs, Quantity: 4314760, Cost: $1.98048e+07
+Item: Hard-core Milk, Quantity: 1638008, Cost: $5.38905e+06
+Item: Such Racy Pasta!, Quantity: 1638044, Cost: $3.0959e+06
+Item: Body_Butter, Quantity: 12865993, Cost: $5.85403e+07
+Total: $3.75056e+09

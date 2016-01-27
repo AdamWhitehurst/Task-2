@@ -49,7 +49,7 @@ void SuperMarket::Greetings() {
 	timeinfo = localtime(&TheTime); // This converts from raw time to the structure.
 
 	cout << "Hello there, valued customer! May I get your name? " << endl;
-	cin >> this->currentSession.customerName;
+	getline(cin, this->currentSession.customerName);
 	if (timeinfo->tm_hour < 12) {
 		cout << "Good morning, ";
 	}
@@ -141,7 +141,8 @@ void SuperMarket::SuperMarketAPI()
 	PrintInvoice();
 	PrintReceipt();
 	cout << "Press any key to close. ";
-	char n = cin.get();
+	char n;
+	cin >> n;
 	cout << n;
 }
 
