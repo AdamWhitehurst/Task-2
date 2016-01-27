@@ -1,4 +1,4 @@
-Customer: Bob
+Customer: Bobby
 Item: Apple, Quantity: 2, Cost: $3.98
 Item: Eggs, Quantity: 2, Cost: $9.18
 Item: Milk, Quantity: 2, Cost: $6.58

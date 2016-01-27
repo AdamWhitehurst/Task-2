@@ -29,10 +29,17 @@ private:
 	}items[5];
 
 public:
-	SuperMarket() {
-		SuperMarketAPI();
-	}
+	SuperMarket();
+	~SuperMarket();
 };
+
+SuperMarket::SuperMarket() {
+	SuperMarketAPI();
+}
+
+SuperMarket::~SuperMarket() {
+	cout << "Deleted Object";
+}
 
 void SuperMarket::Greetings() {
 
