@@ -1,0 +1,5 @@
+Apple 1.99
+Eggs 4.59
+Milk 3.29
+Pasta 1.89
+Butter 4.55

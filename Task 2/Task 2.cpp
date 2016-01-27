@@ -1,10 +1,7 @@
-// Paramters for bill?: int &firstItemAmount, int &secondItemAmount, int &thirdItemAmount, int &fourthItemAmount, int &fifthItemAmount
-
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <time.h>
-
 
 using namespace std;
 
@@ -17,16 +14,18 @@ private:
 	void PrintInvoice();// Prints invoice from printInvoice to a file with the customer name as the file name (e.g. johnmeyer_receipt.txt)
 	void ReadDatabase(); // Calculate and return the amount to be paid by the customer
 	void PrintReceipt(); // Print a receipt with: Description, amount purchased, total on that item, and final total to be paid
-	double Bill(); // Calculate and return the amount to be paid by the customer
+	float Bill(); // Calculate and return the amount to be paid by the customer
+	float totalBill; // The total bill paid
+	char end;
 
 	struct session {
 		string customerName;
-		int firstItemAmount, secondItemAmount, thirdItemAmount, fourthItemAmount, fifthItemAmount;
 	} currentSession;
 
 	struct item {
 		string itemName;
 		float itemPrice;
+		int itemAmount;
 	}items[5];
 
 public:
@@ -42,61 +41,94 @@ void SuperMarket::Greetings() {
 	struct tm * timeinfo; // This will hold the time in an easy-to-use structure
 	timeinfo = localtime(&TheTime); // This converts from raw time to the structure.
 
-	cout << "Hello there valued customer! May I get your name? ";
+	cout << "Hello there, valued customer! May I get your name? " << endl;
 	cin >> this->currentSession.customerName;
 	if (timeinfo->tm_hour < 12) {
-		cout << "Good morning ";
+		cout << "Good morning, ";
 	}
 	else if (timeinfo->tm_hour < 17) {
-		cout << "Good afternoon ";
+		cout << "Good afternoon, ";
 	}
 	else {
-		cout << "Good evening ";
+		cout << "Good evening, ";
 	}
 	cout << this->currentSession.customerName << "!" << endl;
-	cout << this->items[0].itemName;
 };
 
 void SuperMarket::Menu() 
 {
-	// TO-DO
+	cout << "Here is the menu for today: " << endl;
+	for (int i = 0; i < 5; i++) {
+		cout << "Item: " << items[i].itemName << ", Price: " << items[i].itemPrice << endl;
+		cout << "How many would you like? :" << endl;
+		cin >> items[i].itemAmount;
+	}
 }
 
-double SuperMarket::Bill() {
-	// TO-DO
-	return 0.0; // TO-DO: change this!
+float SuperMarket::Bill() {
+	float totalBill = 0;
+	for (int i = 0; i < 5; i++) {
+		totalBill = totalBill + items[i].itemPrice * items[i].itemAmount;
+	}
+	return totalBill;
 }
 
 void SuperMarket::PrintInvoice() 
 {
-	// TO-DO
-	// I'm assuming he wants us to calculate the total price per each number of items (e.g. 2 apples for $5 total) here
-	// and use result from bill method
+	cout << "This is your invoice: " << endl;
+	cout << "Customer: " << currentSession.customerName << endl;
+	for (int i = 0; i < 5; i++) {
+		cout << "Item: " << items[i].itemName
+			<< ", Quantity: " << items[i].itemAmount
+			<< ", Cost: $" << items[i].itemAmount*items[i].itemPrice << endl;
+	}
+	cout << "Total: $" << SuperMarket::Bill() << endl;
 }
 
 void SuperMarket::ReadDatabase()
 {
-	// TO-DO
+	ifstream inputStream;
+
+	inputStream.open("item_list.txt");
+
+	for (int i = 0; i < 5; i++) {
+		inputStream >> items[i].itemName >> items[i].itemPrice;
+	}
+
+	inputStream.close();
 }
 
 void SuperMarket::PrintReceipt()
 {
-	// TO-DO
+	ofstream outputStream;
+	outputStream.open("receipt.txt");
+
+	outputStream << "Customer: " << currentSession.customerName << endl;
+	for (int i = 0; i < 5; i++) {
+		outputStream << "Item: " << items[i].itemName
+			<< ", Quantity: " << items[i].itemAmount
+			<< ", Cost: $" << items[i].itemAmount*items[i].itemPrice << endl;
+	}
+	outputStream << "Total: $" << SuperMarket::Bill() << endl ;
+	outputStream.close();
+
 }
 
 void SuperMarket::SuperMarketAPI()
 {
-	items[0] = { "Apple", 1.00 };
+	/*items[0] = { "Apple", 1.00 };
 	items[1] = { "Salad Mix", 1.50 };
 	items[2] = { "Pork", 5.00 };
 	items[3] = { "Tomato", 1.00 };
-	items[4] = { "Spicy Southwest Chipotle Salad Dressing", 2.00 };
+	items[4] = { "Spicy Southwest Chipotle Salad Dressing", 2.00 };*/
 	ReadDatabase();
 	Greetings();
 	Menu();
 	Bill();
 	PrintInvoice();
 	PrintReceipt();
+	cout << "Enter any character to close: ";
+	cin >> end;
 }
 
 int main()
