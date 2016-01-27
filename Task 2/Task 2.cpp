@@ -97,6 +97,12 @@ void SuperMarket::ReadDatabase()
 	ifstream inputStream;
 
 	inputStream.open("item_list.txt");
+	if (!inputStream) {
+		cout << "No Item_list.txt found!";
+		char n;
+		cin >> n;
+		exit(0);
+	}
 
 	for (int i = 0; i < 5; i++) {
 		size_t start = 0, end;
@@ -114,9 +120,7 @@ void SuperMarket::ReadDatabase()
 
 void SuperMarket::PrintReceipt()
 {
-	ofstream outputStream;
-	outputStream.open("receipt.txt");
-
+	std::ofstream outputStream("Receipt.txt");
 	outputStream << "Customer: " << currentSession.customerName << endl;
 	for (int i = 0; i < 5; i++) {
 		outputStream << "Item: " << items[i].itemName
