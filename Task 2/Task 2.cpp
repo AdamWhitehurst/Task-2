@@ -65,7 +65,7 @@ void SuperMarket::Greetings() {
 void SuperMarket::Menu() 
 {
 	cout << "Here is the menu for today: " << endl;
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < (sizeof(items) / sizeof(items[0])); i++) {
 		cout << "Item: " << items[i].itemName << ", Price: " << items[i].itemPrice << endl;
 		cout << "How many would you like? :" << endl;
 		cin >> items[i].itemAmount;
@@ -74,7 +74,7 @@ void SuperMarket::Menu()
 
 float SuperMarket::Bill() {
 	float totalBill = 0;
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < (sizeof(items) / sizeof(items[0])); i++) {
 		totalBill = totalBill + items[i].itemPrice * items[i].itemAmount;
 	}
 	return totalBill;
@@ -84,7 +84,7 @@ void SuperMarket::PrintInvoice()
 {
 	cout << "This is your invoice: " << endl;
 	cout << "Customer: " << currentSession.customerName << endl;
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < (sizeof(items) / sizeof(items[0])); i++) {
 		cout << "Item: " << items[i].itemName
 			<< ", Quantity: " << items[i].itemAmount
 			<< ", Cost: $" << items[i].itemAmount*items[i].itemPrice << endl;
@@ -104,7 +104,7 @@ void SuperMarket::ReadDatabase()
 		exit(0);
 	}
 
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < (sizeof(items) / sizeof(items[0])); i++) {
 		size_t start = 0, end;
 		string s, priceString;
 		getline(inputStream, s);
@@ -120,9 +120,10 @@ void SuperMarket::ReadDatabase()
 
 void SuperMarket::PrintReceipt()
 {
-	std::ofstream outputStream("Receipt.txt");
+	string outputName = currentSession.customerName + " Receipt.txt";
+	std::ofstream outputStream(outputName);
 	outputStream << "Customer: " << currentSession.customerName << endl;
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < (sizeof(items) / sizeof(items[0])); i++) {
 		outputStream << "Item: " << items[i].itemName
 			<< ", Quantity: " << items[i].itemAmount
 			<< ", Cost: $" << items[i].itemAmount*items[i].itemPrice << endl;
